@@ -1,0 +1,70 @@
+<app-header></app-header>
+<mat-card>
+    <h2> Generate Customer Report</h2>
+    <mat-card-content>
+        <form #generateCRForm="ngForm" (ngSubmit)="generateCustomerReport(generateCRForm)">
+            <mat-card>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" placeholder="Start Date" [formControl]="startDateFormControl" (click)="openStartDatePicker()" autocomplete="off">
+                                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startDatePicker></mat-datepicker>
+                                <mat-error *ngIf="startDateFormControl.hasError('required')">
+                                    Start Date is
+                                    <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-form-field class="example-full-width">
+                                <input matInput [min]="getMinStartDate()" [max]="getMaxEndDate()" [matDatepicker]="endDatePicker" [(ngModel)]="endDate" placeholder="End Date" [formControl]="endDateFormControl" (click)="openEndDatePicker()" autocomplete="off">
+                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker></mat-datepicker>
+                                <mat-error *ngIf="endDateFormControl.hasError('required')">
+                                    End Date is
+                                    <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="endDateFormControl.hasError('matDatepickerMin')">
+                                    End date cannot be before start date
+                                </mat-error>
+                                <mat-error *ngIf="endDateFormControl.hasError('matDatepickerMax')">
+                                    Max range is <strong>90 days</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+            <br/>
+            <div>
+                <button mat-button color="primary" *ngIf="!generateDisabled">Generate Customer Report</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+<!-- <mat-form-field class="example-full-width">
+    <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" placeholder="Start Date" [formControl]="startDateFormControl">
+    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+    <mat-error *ngIf="startDateFormControl.hasError('required')">
+        Start Date is
+        <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <input matInput [min]="getMinEndDate()" [matDatepicker]="picker" [(ngModel)]="endDate" placeholder="End Date" [formControl]="endDateFormControl">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="endDateFormControl.hasError('required')">
+        End Date is
+        <strong>required</strong>
+    </mat-error>
+</mat-form-field> -->
+
+<!-- <mat-form-field class="example-full-width">
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Start Date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field> -->

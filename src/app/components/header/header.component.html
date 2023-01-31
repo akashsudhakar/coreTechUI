@@ -1,0 +1,128 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <mat-menu #rootMenu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="subMenuBuyLead" *ngIf="showBuyLeadMenu">Buy Leads</button>
+            <button mat-menu-item [matMenuTriggerFor]="subMenuPO" *ngIf="showPOMenu">Purchase Orders</button>
+            <button mat-menu-item [matMenuTriggerFor]="subMenuProcurements" *ngIf="showProcurementsMenu">Procurements</button>
+            <button mat-menu-item [matMenuTriggerFor]="subMenuUser" *ngIf="showUsersMenu">Users</button>
+            <button mat-menu-item [matMenuTriggerFor]="subMenuSupplier" *ngIf="showSupplierMenu">Suppliers</button>
+            <button mat-menu-item [routerLink]="['../createCustomerReport']" *ngIf="showCustomerReportMenu">Customer Report</button>
+            <button mat-menu-item [matMenuTriggerFor]="subMenuAccount">Account</button>
+        </mat-menu>
+
+        <mat-menu #subMenuBuyLead="matMenu">
+            <button mat-menu-item [routerLink]="['../createBuyLead']" (click)="setSectionName('Create Buy Lead')">Create</button>
+            <button mat-menu-item [routerLink]="['../updateBuyLead']" (click)="setSectionName('Update Buy Lead')">Update</button>
+            <button mat-menu-item [routerLink]="['../approveBuyLead']" (click)="setSectionName( 'Approve Buy Lead')">Approve</button>
+            <button mat-menu-item [routerLink]="['../createQuotation']" (click)="setSectionName( 'Create Quotation')">Generate Quotation</button>
+            <button mat-menu-item [routerLink]="['../followUp']" (click)="setSectionName( 'Follow Up')">Follow up</button>
+            <button mat-menu-item [routerLink]="['../editBuyLead']" *ngIf="showEditBuyLead">Edit</button>
+        </mat-menu>
+
+        <mat-menu #subMenuUser="matMenu">
+            <button mat-menu-item [routerLink]="['../createUser']" (click)="setSectionName('Create User')">Create User</button>
+            <button mat-menu-item [routerLink]="['../updateUser']" (click)="setSectionName('Update User')">Update User</button>
+        </mat-menu>
+
+        <mat-menu #subMenuAccount="matMenu">
+            <button mat-menu-item [routerLink]="['../changePassword']">Change Password</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+
+        <mat-menu #subMenuPO="matMenu">
+            <button mat-menu-item [routerLink]="['../pendingPayOrder']">Pending PO</button>
+            <button mat-menu-item [routerLink]="['../generatePayOrder']">Generate PO</button>
+        </mat-menu>
+
+        <mat-menu #subMenuProcurements="matMenu">
+            <button mat-menu-item [routerLink]="['../procuralItems']">Procural Items</button>
+            <button mat-menu-item [routerLink]="['../procurementTracking']">Procurement Tracking</button>
+        </mat-menu>
+
+        <mat-menu #subMenuSupplier="matMenu">
+            <button mat-menu-item [routerLink]="['../createSupplier']" (click)="setSectionName('Create Supplier')">Create Supplier</button>
+            <button mat-menu-item [routerLink]="['../updateSupplier']" (click)="setSectionName('Update Supplier')">Update Supplier</button>
+        </mat-menu>
+
+
+        <button mat-icon-button [matMenuTriggerFor]="rootMenu"><i class="material-icons">menu</i></button>
+        <span>Core Technologies</span>
+		<span class="example-spacer"></span>
+		<button mat-icon-button style="float:right" [routerLink]="['../blankHomePage']"><i class="material-icons">home</i></button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- 
+<mat-sidenav-container class="sidenav-container" *ngIf="shouldRun">
+    <mat-sidenav class="sidenav-main" #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')">
+        <div style="background-color: white">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header style="box-shadow: 0px;">
+                        <mat-panel-title> Buy Leads </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../createBuyLead']">Create</a>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../updateBuyLead']">Update</a>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../approveBuyLead']">Approve</a>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../createQuotation']">Create Quotation</a>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../followUp']">Follow up</a>
+                        </mat-list-item>
+
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-nav-list>
+                    <mat-list-item><a matLine [routerLink]="['../pendingPayOrder']">Pending PO</a></mat-list-item>
+                    <mat-list-item><a matLine [routerLink]="['../procuralItems']">Procural Items</a></mat-list-item>
+                </mat-nav-list>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title> Users</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../createUser']" (click)="setSectionName('Create User')">Create User</a>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../updateUser']" (click)="setSectionName('Update User')">Update User</a>
+                        </mat-list-item>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title> Suppliers</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../createSupplier']" (click)="setSectionName('Create Supplier')">Create Supplier</a>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <a matLine [routerLink]="['../updateSupplier']" (click)="setSectionName('Update Supplier')">Update Supplier</a>
+                        </mat-list-item>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-nav-list>
+                    <mat-list-item><a matLine (click)="logout()">Logout</a></mat-list-item>
+                </mat-nav-list>
+            </mat-accordion>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+        <button mat-icon-button (click)="sidenav.toggle()"><i class="material-icons" color="accent">menu</i></button>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span style="margin-left:30px">Core Technologies</span>
+    </mat-toolbar-row>
+</mat-toolbar> -->

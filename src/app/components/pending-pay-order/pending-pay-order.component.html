@@ -1,0 +1,145 @@
+<app-header></app-header>
+<mat-card>
+    <mat-grid-list cols="2" rowHeight="50px">
+        <mat-grid-tile>
+            <h2 style="text-align: left;width:100%">Pending PO</h2>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div style="text-align: right;width:100%;margin-right:10px;"><button mat-raised-button color="primary" (click)="openDialog()">Filter</button></div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div class="example-container mat-elevation-z8">
+        <mat-table #table [(dataSource)]="itemsDataSource">
+            <ng-container matColumnDef="poNumber">
+                <mat-header-cell *matHeaderCellDef> PO Number </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.poNumber}}
+                    <!-- <mat-form-field floatLabel="never">
+                        <input matInput placeholder="PO Number" [(ngModel)]="element.poNumber" name="poNumber" /> -->
+                    <!-- <mat-error *ngIf="quoteIdControl.hasError('required')">Please enter a Quote ID</mat-error> -->
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="poDate">
+                <mat-header-cell *matHeaderCellDef> PO Date </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.poDate | date:'dd MMM yy'}}
+                    <!-- <mat-form-field floatLabel="never"> 
+                        <input matInput [matDatepicker]="picker2" [(ngModel)]="element.poDate" placeholder="PO date" (click)="openPODatePicker()" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker> -->
+                    <!-- <mat-error *ngIf="deliveryDateFormControl.hasError('required')">
+                            Delivery Date is
+                            <strong>required</strong>
+                        </mat-error> -->
+                    <!-- </mat-form-field> -->
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="itemName">
+                <mat-header-cell fxFlex="200px" *matHeaderCellDef> Item Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.itemName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.quantityAsked}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="quantitySend">
+                <mat-header-cell *matHeaderCellDef> Quantity Sent </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="Quantity Sent" [(ngModel)]="element.quantitySend" name="quantitySend" />
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rate">
+                <mat-header-cell *matHeaderCellDef> Rate </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="customerName">
+                <mat-header-cell *matHeaderCellDef> Customer Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.customerName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="stockAvailable">
+                <mat-header-cell *matHeaderCellDef> Stock Available </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="PO Number" (change)="updateToProcure(element)" [(ngModel)]="element.stockAvailable" name="stockAvailable" />
+                    </mat-form-field>
+                </mat-cell>
+                <!-- <mat-cell *matCellDef="let element"> {{element.stockAvailable}} </mat-cell> -->
+            </ng-container>
+            <ng-container matColumnDef="stockToBeProcured">
+                <mat-header-cell *matHeaderCellDef> To Procure </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.stockToBeProcured}} </mat-cell>
+                <!-- <mat-cell *matCellDef="let element">
+        <div [ngModel]="calculateStockToBeProcured(element)"></div>
+      </mat-cell> -->
+            </ng-container>
+            <!-- <ng-container matColumnDef="stockStatus">
+      <mat-header-cell *matHeaderCellDef> Stock Status </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.stockStatus}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="poStatus">
+      <mat-header-cell *matHeaderCellDef> PO Status </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.poStatus}} </mat-cell>
+    </ng-container> -->
+
+            <ng-container matColumnDef="stockStatus">
+                <mat-header-cell *matHeaderCellDef> Stock Status </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-select placeholder="Stock Status" [(value)]="element.stockStatus" required>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let stockState of stockStatus" [value]="stockState">
+                            {{stockState}}
+                        </mat-option>
+                    </mat-select>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="poStatus">
+                <mat-header-cell *matHeaderCellDef> PO Status </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-select placeholder="PO Status" [(value)]="element.poStatus" required>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let poState of poStatus" [value]="poState">
+                            {{poState}}
+                        </mat-option>
+                    </mat-select>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="dispatchCourier">
+                <mat-header-cell *matHeaderCellDef> Dispatch Courier </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="Dispatch Courier" [(ngModel)]="element.dispatchCourier" name="dispatchCourier" />
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="lrNumber">
+                <mat-header-cell *matHeaderCellDef> LR No </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="LR Number" [(ngModel)]="element.lrNumber" name="lrNumber" />
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="poRemarks">
+                <mat-header-cell *matHeaderCellDef> PO Remarks </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="PO Remarks" [(ngModel)]="element.poRemarks" name="poRemarks" />
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="update">
+                <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-button color="accent" (click)="update(element)">Update</button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedItemsColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedItemsColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [length]="500" [pageIndex]="pageEvent.pageIndex" [pageSize]="pageEvent.pageSize" [pageSizeOptions]="[50, 100, 200]" hidePageSize="true" (page)="getServerData($event)">
+        </mat-paginator>
+    </div>
+</mat-card>

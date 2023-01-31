@@ -1,0 +1,227 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+/* @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* @import "../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css"; */
+
+
+/* @import "../node_modules/@angular/material/prebuilt-themes/purple-green.css"; */
+
+
+/* @import '@material-design-icons/iconfont/material-icons.css'; */
+
+
+/* *{
+  font-family:Roboto, "Helvetica Neue", sans-serif;
+  font-size: 12px; 
+} */
+
+
+/* html {
+  background-image: url("/assets/images/bck.jpg");
+  background-repeat: repeat-y;
+} */
+
+.mat-cell {
+    /* for data table cells */
+    padding: 1px;
+}
+
+.mat-header-cell {
+    display: flex;
+    /* text-align: center; */
+    /* font-weight: bold; */
+    font-size: 14px;
+    color: black;
+}
+
+.material-icons {
+    cursor: default;
+    padding: 5px;
+}
+
+.mat-header-row {
+    /* background-color: rgb(226, 226, 226); */
+    background-color: rgb(186, 193, 216);
+}
+
+.mat-button.mat-accent,
+.mat-icon-button.mat-accent {
+    /* Button accent colour */
+    color: #ff9e40;
+}
+
+
+/* Datatable */
+
+.mat-paginator-range-label {
+    display: none !important;
+    /* Datatable paginator page numbers */
+}
+
+.mat-header-row,
+.mat-row {
+    padding-right: 0px !important;
+}
+
+.mat-form-field-infix {
+    /* Width of add buy lead item input fields*/
+    width: 160px !important;
+}
+
+mat-tab-group {
+    /* border around tabs */
+    border: 1px solid #e8e8e8;
+}
+
+
+/* .mat-cell { 
+ display: flex !important;
+    align-self: stretch !important; 
+border-right-style: solid !important;
+    border-right-color: lightgrey !important;
+    border-right-width: 1px !important; 
+ padding: 3px 3px !important; 
+ align-items center so that cell content is vertically centered 
+ -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center; 
+} */
+
+
+/* .login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+} */
+
+
+/* .form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.loginForm input {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin-top: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+.form button {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 12px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-top:15px;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+} */
+
+body {
+    margin: 15px;
+    background: #529bb8;
+    /* background-image: url("assets/images/background.jpeg");
+	background-repeat: repeat; */
+    /* background: -webkit-linear-gradient(right, #c7c7c7cc, #c7c7c7e7);
+  background: -moz-linear-gradient(right,  #c7c7c7cc, #c7c7c7e7);
+  background: -o-linear-gradient(right,   #c7c7c7cc, #c7c7c7e7);
+  background: linear-gradient(to left,   #c7c7c7cc, #c7c7c7e7); */
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.isa_info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+
+.isa_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+.isa_warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+
+.isa_error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    font-family: monospace;
+    font-size: 12px;
+    font-style: normal;
+    text-align: left;
+    padding: 5px 16px 2px 14px;
+}
+
+.text-align-center {
+    text-align: center;
+}

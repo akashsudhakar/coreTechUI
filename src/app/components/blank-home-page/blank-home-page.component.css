@@ -1,0 +1,17 @@
+#home-container {
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    overflow: hidden;
+    /* z-index: -1; */
+    /* Remove this line if it's not going to be a background! */
+}
+
+.logo {
+    position: absolute;
+    top: 40%;
+    left: 34%;
+    z-index: 1000;
+}

@@ -1,0 +1,97 @@
+<app-header></app-header>
+<mat-card>
+    <mat-grid-list cols="2" rowHeight="70px">
+        <mat-grid-tile>
+            <h2 style="text-align: left;width:100%">Procural Items</h2>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div style="text-align: right;width:100%;margin-right:10px;"><button mat-raised-button color="primary" (click)="openDialog()">Filter</button></div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div class="example-container mat-elevation-z8">
+        <mat-table #table [(dataSource)]="itemsDataSource">
+            <ng-container matColumnDef="poNumber">
+                <mat-header-cell *matHeaderCellDef> PO Number </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.poNumber}}
+                    <!-- <mat-form-field floatLabel="never">
+                        <input matInput placeholder="PO Number" [(ngModel)]="element.poNumber" name="poNumber" />
+                    </mat-form-field> -->
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rateinPO">
+                <mat-header-cell *matHeaderCellDef> Rate in PO </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.rateinPO}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="purchaseRateUSD">
+                <mat-header-cell *matHeaderCellDef> Purchase Rate (USD) </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="Purchase Rate (USD)" [(ngModel)]="element.purchaseRateUSD" name="purchaseRateUSD" />
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="purchaseRateINR">
+                <mat-header-cell *matHeaderCellDef> Purchase Rate INR </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="Purchase Rate INR" (change)="updateTotal(element)" [(ngModel)]="element.purchaseRateINR" name="purchaseRateINR" />
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="totalPurchaseRateInr">
+                <mat-header-cell *matHeaderCellDef> Total Rate </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.totalPurchaseRateInr}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="customerName">
+                <mat-header-cell *matHeaderCellDef> Customer </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.customerName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="itemName">
+                <mat-header-cell *matHeaderCellDef> Item </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.itemName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef> To Procure </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="supplierName">
+                <mat-header-cell *matHeaderCellDef> Supplier </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-select placeholder="Supplier Name" [(value)]="element.supplierId" required>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
+                            {{supplier.supplierName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="orderStatus">
+                <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-select placeholder="Status" [(value)]="element.status" required>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let orderStatus of orderStatuses" [value]="orderStatus">
+                            {{orderStatus}}
+                        </mat-option>
+                    </mat-select>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="update">
+                <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-button color="primary" (click)="update(element)">Update</button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+                <mat-header-cell *matHeaderCellDef>Delete </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-button color="warn" (click)="delete(element)">Delete</button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedItemsColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedItemsColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [length]="500" [pageIndex]="pageEvent.pageIndex" [pageSize]="pageEvent.pageSize" [pageSizeOptions]="[50, 100, 200]" hidePageSize="true" (page)="getServerData($event)">
+        </mat-paginator>
+    </div>
+</mat-card>

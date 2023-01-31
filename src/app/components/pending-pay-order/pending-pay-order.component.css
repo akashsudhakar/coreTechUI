@@ -1,0 +1,7 @@
+.mat-cell {
+    padding: 1px;
+}
+
+.mat-column-itemNam {
+    flex: 0 0 150px !important;
+}

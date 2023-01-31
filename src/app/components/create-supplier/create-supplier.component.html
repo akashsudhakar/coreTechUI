@@ -1,0 +1,47 @@
+<app-header sectionName="Create Buy Lead"></app-header>
+<mat-card>
+    <h2>Create Supplier</h2>
+    <mat-card-content>
+        <form #supplierDetailsForm="ngForm" (ngSubmit)="createSupplier(supplierDetailsForm)">
+            <mat-card>
+                <!-- <mat-card-header>
+                    <mat-card-title>User Details</mat-card-title>
+                </mat-card-header> -->
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            <mat-form-field class="example-full-width">
+                                <input matInput [(ngModel)]="supplier.supplierName" name="supplierName" placeholder="Supplier Name" [formControl]="supplierNameFormControl" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="supplierNameFormControl.hasError('required')" name="supplierNameError">
+                                    Supplier name is
+                                    <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="supplierNameFormControl.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>40 characters</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-form-field class="example-full-width">
+                                <input matInput [(ngModel)]="supplier.contact" name="contact" placeholder="Contact Number" [formControl]="contactFormControl" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="contactFormControl.hasError('required')" name="contactError">
+                                    Contact number is
+                                    <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="contactFormControl.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>15 characters</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+            <br/>
+            <div>
+                <button mat-button color="primary">Create</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

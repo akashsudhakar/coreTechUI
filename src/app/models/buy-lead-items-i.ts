@@ -1,0 +1,33 @@
+export interface BuyLeadItemsI {
+    id: number;
+    buyLeadId: number;
+    itemName: string;
+    quantityAsked: number;
+    quantitySendOriginal: number;
+    quantitySend: number;
+    customerName: string;
+    category: string;
+    remarks: string;
+    rate: number;
+    total: number;
+    stockAvailable: number;
+    stockToBeProcured: number;
+    poNumber: string;
+    poStatus: string;
+    stockStatus: string;
+    createdBy: number;
+    poDate: string;
+    iGST: number;
+    cGST: number;
+    sGST: number;
+    manufacturer: string;
+    partNumber: string;
+    deliveryDate: string;
+    deliveryDateObject: Date;
+    dispatchCourier: string;
+    lrNumber: string;
+    poRemarks: string;
+    updatedBy: number;
+    createdDate: string;
+    updatedDate: string;
+}
