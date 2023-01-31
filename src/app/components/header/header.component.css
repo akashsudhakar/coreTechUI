@@ -1,0 +1,33 @@
+.mat-drawer-container {
+    background-color: transparent;
+    float: left;
+}
+
+.sidenav-container {
+    float: left;
+    height: 500em;
+    position: fixed;
+    z-index: 100;
+    /* margin: 10px; */
+}
+
+.sidenav-main {
+    margin-top: 40px;
+    /* background-color: transparent; */
+}
+
+.sidenav-content {
+    float: left;
+    /* width: 400px; */
+    /* height: 100%; */
+    /* position: fixed; */
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+/* 
+.mat-sidenav-transition .mat-sidenav {
+    -webkit-transition: width .3s !important;
+    transition: width .3s !important;
+} */

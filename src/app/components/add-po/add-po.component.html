@@ -1,0 +1,111 @@
+<app-header></app-header>
+<mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="onLinkClick($event)">
+  <mat-tab label="Customer Details">
+    <div class="example-container mat-elevation-z8">
+      <mat-table #table [(dataSource)]="buyLeadDataSource">
+        <ng-container matColumnDef="custName">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.custName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="custLocation">
+          <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.custLocation}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="custPhone">
+          <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.custPhone}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="custEmail">
+          <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.custEmail}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="approve">
+          <mat-header-cell *matHeaderCellDef> Approve </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <!-- <input type="button" value="Edit" style="background: #82e487;" (click)="editBuyLead(element)"> -->
+            <!-- <i class="material-icons" (click)="editBuyLead(element)">open_in_new</i> -->
+            <button mat-icon-button (click)="editBuyLead(element)">
+              <mat-icon aria-label="Approve">open_in_new</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedBuyLeadColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedBuyLeadColumns;"></mat-row>
+      </mat-table>
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Buy Lead Items">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Customer Details</mat-card-title>
+        <mat-card-subtitle>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Customer Name" [(ngModel)]="buyLeadSelected.custName" disabled>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Customer Location" [(ngModel)]="buyLeadSelected.custLocation" disabled>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Customer Phone" [(ngModel)]="buyLeadSelected.custPhone" disabled>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Customer Email" [(ngModel)]="buyLeadSelected.custEmail" disabled>
+          </mat-form-field>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="example-container mat-elevation-z8">
+          <mat-table #table [(dataSource)]="itemsDataSource">
+            <ng-container matColumnDef="quantity">
+              <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="itemName">
+              <mat-header-cell *matHeaderCellDef> Item Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.itemName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="category">
+              <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="remarks">
+              <mat-header-cell *matHeaderCellDef> Remarks </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.remarks}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rate">
+              <mat-header-cell *matHeaderCellDef> Rate </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="gst">
+              <mat-header-cell *matHeaderCellDef> GST </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.gst}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="total">
+              <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.total}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="stock">
+              <mat-header-cell *matHeaderCellDef> Stock </mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                <input type="text" [(ngModel)]="element.stock" name="stock" />
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedItemsColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedItemsColumns;"></mat-row>
+          </mat-table>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="addPO()">Approve</button>
+        <button mat-button color="warn" (click)="toggleTab()">Cancel</button>
+        <!-- <button mat-button color="primary">Primary</button> 
+        mat-raised-button-->
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
+
+<br/>
+<br/>

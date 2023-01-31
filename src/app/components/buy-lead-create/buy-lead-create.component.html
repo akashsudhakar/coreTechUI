@@ -1,0 +1,231 @@
+<app-header sectionName="Create Buy Lead"></app-header>
+<!-- <h1>Create Buy Lead</h1> -->
+<mat-card>
+    <mat-card-content>
+        <form #customerDetailsForm="ngForm" (ngSubmit)="createBuyLead(customerDetailsForm)">
+
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title><h2>Customer Details</h2></mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-grid-list cols="3" rowHeight="75px">
+                        <mat-grid-tile>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Customer Name" [(ngModel)]="buyLead.custName" [formControl]="customerNameValidator" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="customerNameValidator.hasError('required')">
+                                    Name is
+                                    <strong>Required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="customerNameValidator.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>60 characters</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Customer City" [(ngModel)]="buyLead.custLocation" [formControl]="customerLocationValidator" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="customerLocationValidator.hasError('required')">
+                                    City is
+                                    <strong>Required </strong>
+                                </mat-error>
+                                <mat-error *ngIf="customerLocationValidator.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>40 characters</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Customer Phone" [(ngModel)]="buyLead.custPhone" [formControl]="customerPhoneValidator" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="customerPhoneValidator.hasError('required')">
+                                    Phone Number is
+                                    <strong>Required </strong>
+                                </mat-error>
+                                <mat-error *ngIf="customerPhoneValidator.hasError('minlength')">
+                                    Minimum of
+                                    <strong>10 digits</strong>
+                                </mat-error>
+                                <mat-error *ngIf="customerPhoneValidator.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>25 characters</strong>
+                                </mat-error>
+                                <mat-error *ngIf="customerPhoneValidator.hasError('pattern')">
+                                    Phone number format is
+                                    <strong>Invalid</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Customer Email" [(ngModel)]="buyLead.custEmail" [formControl]="customerEmailValidator" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="customerEmailValidator.hasError('required')">
+                                    Email is
+                                    <strong>Required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="customerEmailValidator.hasError('pattern')">
+                                    <strong>Invalid </strong> Email Format
+                                </mat-error>
+                                <mat-error *ngIf="customerEmailValidator.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>30 characters</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Company Name" [(ngModel)]="buyLead.companyName" [formControl]="companyNameValidator" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="companyNameValidator.hasError('required')">
+                                    Company name is
+                                    <strong>Required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="companyNameValidator.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>60 characters</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Postal Address" [(ngModel)]="buyLead.postalAddress" [formControl]="postalAddressValidator" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="postalAddressValidator.hasError('required')">
+                                    Postal Address is
+                                    <strong>Required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="postalAddressValidator.hasError('maxlength')">
+                                    Maximum of
+                                    <strong>100 characters</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card-content>
+            </mat-card>
+
+            <div *ngIf="containsItems">
+                <mat-card>
+                    <!-- <div class="example-container mat-elevation-z8"> -->
+                    <mat-table #table [(dataSource)]="dataSource">
+                        <ng-container matColumnDef="quantity">
+                            <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.quantityAsked}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="itemName">
+                            <mat-header-cell *matHeaderCellDef> Item Name </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.itemName}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="manufacturer">
+                            <mat-header-cell *matHeaderCellDef> Manufacturer </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.manufacturer}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="partNumber">
+                            <mat-header-cell *matHeaderCellDef> Part Number </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.partNumber}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="category">
+                            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="deliveryDate">
+                            <mat-header-cell *matHeaderCellDef> Delivery Date </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                {{element.deliveryDate | date:'dd MMM yy'}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="remarks">
+                            <mat-header-cell *matHeaderCellDef> Remarks </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.remarks}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="remove">
+                            <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <i class="material-icons" (click)="removeItem(element)">delete</i>
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;let index = index"></mat-row>
+                    </mat-table>
+                </mat-card>
+            </div>
+
+            <mat-card>
+                <form #addItemForm="ngForm" (ngSubmit)="addNewItemDetails(addItemForm)">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput [(ngModel)]="newBuyLeadItem.itemName" placeholder="Item Name" [formControl]="itemNameFormControl" [errorStateMatcher]="addItemMatcher">
+                        <mat-error *ngIf="itemNameFormControl.hasError('required')">
+                            Item Name is
+                            <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="itemNameFormControl.hasError('maxlength')">
+                            Maximum of
+                            <strong>100 characters</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput [(ngModel)]="newBuyLeadItem.manufacturer" placeholder="Manufacturer" [formControl]="manufacturerFormControl" [errorStateMatcher]="addItemMatcher">
+                        <mat-error *ngIf="manufacturerFormControl.hasError('required')">
+                            Manufacturer is
+                            <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="manufacturerFormControl.hasError('maxlength')">
+                            Maximum of
+                            <strong>30 characters</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput [(ngModel)]="newBuyLeadItem.partNumber" placeholder="Part Number" [formControl]="partNumberFormControl" [errorStateMatcher]="addItemMatcher">
+                        <mat-error *ngIf="partNumberFormControl.hasError('required')">
+                            Item Name is
+                            <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="partNumberFormControl.hasError('maxlength')">
+                            Maximum of
+                            <strong>30 characters</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput [(ngModel)]="newBuyLeadItem.quantityAsked" placeholder="Quantity" [formControl]="quantityFormControl" [errorStateMatcher]="addItemMatcher">
+                        <mat-error *ngIf="quantityFormControl.hasError('required')">
+                            Quantity is
+                            <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="quantityFormControl.hasError('pattern')">
+                            <strong>Invalid</strong> Quantity
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput [(ngModel)]="newBuyLeadItem.category" placeholder="Category" [formControl]="categoryFormControl" [errorStateMatcher]="addItemMatcher">
+                        <mat-error *ngIf="categoryFormControl.hasError('required')">
+                            Category is
+                            <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="categoryFormControl.hasError('maxlength')">
+                            Maximum of
+                            <strong>30 characters</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput [(ngModel)]="newBuyLeadItem.remarks" placeholder="Remarks" [formControl]="remarksFormControl" [errorStateMatcher]="addItemMatcher">
+                        <mat-error *ngIf="remarksFormControl.hasError('required')">
+                            Remarks are
+                            <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="remarksFormControl.hasError('maxlength')">
+                            Maximum of
+                            <strong>100 characters</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-icon-button>
+                        <mat-icon aria-label="Add Item">add_circle_outline</mat-icon>
+                    </button>
+                </form>
+            </mat-card>
+            <br/>
+            <button mat-button color="primary" *ngIf="!createDisabled">Create</button>
+            <button mat-button color="accent" type="button" (click)="fileInput.click()">Upload CSV</button>
+            <button mat-button color="warn" (click)="clear()">Clear</button>
+        </form>
+    </mat-card-content>
+    <input #fileInput type="file" (change)="onFileInput($event)" accept=".csv" style="display:none;" />
+</mat-card>

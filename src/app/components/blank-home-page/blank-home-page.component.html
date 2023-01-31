@@ -1,0 +1,17 @@
+<div id="home-container">
+	<app-header sectionName="Home"></app-header>
+	<!-- <mat-card style="height: 100%"> -->
+	<!-- <div style="text-align:center; vertical-align: middle;height: 100%"> -->
+	<div style="background-image: url('assets/images/background.jpeg') ;background-repeat: repeat;height: 100%">
+		<div>
+			<span style="display:inline-block;height:50px;"></span>
+		</div>
+		<div [hidden]="!pieChart" style="float:left;width:50%;">
+			<canvas id="pie">{{ pieChart }}</canvas>
+		</div>
+		<div [hidden]="!barChart" style="float:right;width:50%;">
+			<canvas id="bar">{{ barChart }}</canvas>
+		</div>
+	</div>
+	<!-- </mat-card> -->
+</div>

@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{data.title}} </h1>
+<div mat-dialog-content>
+    <p>PO Number
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.poNumber">
+        </mat-form-field>
+    </p>
+    <p>Item Name
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.itemName">
+        </mat-form-field>
+    </p>
+    <p>Customer Name
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.customerName">
+        </mat-form-field>
+    </p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Apply Filter</button>
+</div>

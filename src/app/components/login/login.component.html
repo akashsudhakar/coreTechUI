@@ -1,0 +1,33 @@
+<form #loginForm="ngForm">
+    <mat-grid-list cols="9" rowHeight="75px">
+        <mat-grid-tile [rowspan]="1" class="login-icon">
+            <mat-icon>lock</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="7">
+            <mat-input-container class="justifier">
+                <input matInput [(ngModel)]="user.username" name="username" placeholder="User Name" [formControl]="usernameFormControl" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="usernameFormControl.hasError('required')" name="usernameError">
+                    Username is
+                    <strong>required</strong>
+                </mat-error>
+            </mat-input-container>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="9" rowHeight="100px">
+        <mat-grid-tile [rowspan]="1" class="login-icon">
+            <mat-icon>remove_red_eye</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="7">
+            <mat-input-container class="justifier">
+                <input type="password" matInput [(ngModel)]="user.password" name="password" placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="passwordFormControl.hasError('required')" name="passwordError">
+                    Password is
+                    <strong>required</strong>
+                </mat-error>
+            </mat-input-container>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <button mat-raised-button class="login-button" (click)="login('/blankHomePage')" [disabled]="!loginForm.form.valid">
+    <i class="material-icons"  title="Login">input </i>Login
+  </button>
+</form>

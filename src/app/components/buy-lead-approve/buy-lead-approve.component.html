@@ -1,0 +1,138 @@
+<app-header></app-header>
+<mat-card>
+    <mat-grid-list cols="2" rowHeight="50px">
+        <mat-grid-tile>
+            <h2 style="text-align: left;width:100%">Approve Buy Lead</h2>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="onLinkClick($event)">
+        <mat-tab label="Customer Details">
+            <div class="example-container mat-elevation-z8">
+                <mat-table #table [(dataSource)]="buyLeadDataSource">
+                    <ng-container matColumnDef="custName">
+                        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.custName}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="custLocation">
+                        <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.custLocation}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="custPhone">
+                        <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.custPhone}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="custEmail">
+                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.custEmail}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="companyName">
+                        <mat-header-cell *matHeaderCellDef> Company Name </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.companyName}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="createdDate">
+                        <mat-header-cell *matHeaderCellDef> Created Date </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.createdDateObject | date:'dd MMM yy'}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="approve">
+                        <mat-header-cell *matHeaderCellDef> Approve </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <!-- <input type="button" value="Edit" style="background: #82e487;" (click)="editBuyLead(element)"> -->
+                            <!-- <i class="material-icons" (click)="editBuyLead(element)">open_in_new</i> -->
+                            <button mat-icon-button (click)="editBuyLead(element)">
+                <mat-icon aria-label="Approve">open_in_new</mat-icon>
+              </button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedBuyLeadColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedBuyLeadColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [length]="500" [pageIndex]="pageEvent.pageIndex" [pageSize]="pageEvent.pageSize" [pageSizeOptions]="[50, 100, 200]" hidePageSize="true" (page)="getServerData($event)">
+                </mat-paginator>
+            </div>
+
+        </mat-tab>
+        <mat-tab label="Buy Lead Items">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Customer Details</mat-card-title>
+                    <mat-card-subtitle>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Customer Name" [(ngModel)]="buyLeadSelected.custName" disabled>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Customer City" [(ngModel)]="buyLeadSelected.custLocation" disabled>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Customer Phone" [(ngModel)]="buyLeadSelected.custPhone" disabled>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Customer Email" [(ngModel)]="buyLeadSelected.custEmail" disabled>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Company Name" [(ngModel)]="buyLeadSelected.companyName" disabled>
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="example-container mat-elevation-z8">
+                        <mat-table #table [(dataSource)]="itemsDataSource">
+                            <ng-container matColumnDef="quantity">
+                                <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.quantityAsked}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="quantitySend">
+                                <mat-header-cell *matHeaderCellDef> Quantity Sent </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.quantityAsked}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="itemName">
+                                <mat-header-cell *matHeaderCellDef> Item Name </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.itemName}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="category">
+                                <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="remarks">
+                                <mat-header-cell *matHeaderCellDef> Remarks </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.remarks}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="rate">
+                                <mat-header-cell *matHeaderCellDef> Rate </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="iGST">
+                                <mat-header-cell *matHeaderCellDef> IGST </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.iGST}}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="cGST">
+                                <mat-header-cell *matHeaderCellDef> CGST </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.cGST}}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="sGST">
+                                <mat-header-cell *matHeaderCellDef> SGST </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.sGST}}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="total">
+                                <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.total}}</mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedItemsColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedItemsColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button mat-button color="primary" (click)="approveBuyLead()">Approve</button>
+                    <button mat-button color="warn" (click)="toggleTab()">Cancel</button>
+                    <!-- <button mat-button color="primary">Primary</button> 
+        mat-raised-button-->
+                </mat-card-actions>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+
+<br/>
+<br/>

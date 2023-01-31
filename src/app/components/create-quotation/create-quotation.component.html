@@ -1,0 +1,89 @@
+<app-header></app-header>
+<mat-card>
+    <h2>Generate Quotation</h2>
+    <div class="example-container mat-elevation-z8">
+        <mat-table #table [(dataSource)]="buyLeadDataSource">
+            <ng-container matColumnDef="custName">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.custName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="custLocation">
+                <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.custLocation}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="custPhone">
+                <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.custPhone}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="custEmail">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.custEmail}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="createdDate">
+                <mat-header-cell *matHeaderCellDef> Created Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.createdDateObject | date:'dd MMM yy'}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="shipping">
+                <mat-header-cell *matHeaderCellDef> Shipping Cost </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                        <input matInput placeholder="Shipping Cost" [(ngModel)]="element.shipping">
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="term1">
+                <mat-header-cell *matHeaderCellDef> Term 1</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                        <input matInput placeholder="Term 1" [(ngModel)]="element.term1">
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="term3">
+                <mat-header-cell *matHeaderCellDef> Term 3 </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                        <input matInput placeholder="Term 3" [(ngModel)]="element.term3">
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="companyName">
+                <mat-header-cell *matHeaderCellDef> Company Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.companyName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="bankAccounts">
+                <mat-header-cell *matHeaderCellDef> Bank Account </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                        <mat-select placeholder="Bank Account" [(value)]="element.bankAccount" required>
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let bankAccount of bankAccounts" [value]="bankAccount">
+                                {{bankAccount}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="bankAccountsControl.hasError('required')">Please choose an Account</mat-error> -->
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="generateQuotation">
+                <mat-header-cell *matHeaderCellDef> Generate Quotation </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <!-- <input type="button" value="Edit" style="background: #82e487;" (click)="editBuyLead(element)"> -->
+                    <button mat-button color="primary" (click)="generateQuotation(element)">Generate</button>
+
+                    <!-- <button mat-icon-button (click)="generateQuotation(element)">
+          <mat-icon aria-label="Edit">mode_edit</mat-icon> -->
+                    <!-- <i  class="material-icons" (click)="editBuyLead(element)">mode_edit</i> -->
+                    <!-- </button> -->
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedBuyLeadColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedBuyLeadColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [length]="500" [pageIndex]="pageEvent.pageIndex" [pageSize]="pageEvent.pageSize" [pageSizeOptions]="[50, 100, 200]" hidePageSize="true" (page)="getServerData($event)"></mat-paginator>
+    </div>
+</mat-card>

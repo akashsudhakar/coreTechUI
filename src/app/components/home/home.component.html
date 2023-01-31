@@ -1,0 +1,27 @@
+<div style="text-align:center">
+    <img alt="Core Technologies" src="assets/images/logo.ico">
+    <!-- <h2>Core Technologies</h2> -->
+</div>
+
+<div>
+    <mat-grid-list cols="3" rowHeight="380px">
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile align-items="top" class='login-element'>
+            <div class="login-container">
+                <div class="login-box-body">
+                    <!-- <app-register *ngIf="newUser"></app-register> -->
+                    <app-login *ngIf="!newUser"></app-login>
+                    <br/>
+                    <!-- <p class="text-align-center" *ngIf="!newUser">Existing user:
+                        <a href="#" (click)="setNewUser(true)">Change password</a>
+                    </p>
+                    <p class="text-align-center" *ngIf="newUser">Cancel:
+                        <a href="#" (click)="setNewUser(false)">Sign In</a>
+                    </p> -->
+                </div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+
+    </mat-grid-list>
+</div>

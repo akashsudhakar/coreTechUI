@@ -1,0 +1,55 @@
+<app-header></app-header>
+<mat-card>
+    <mat-grid-list cols="2" rowHeight="50px">
+        <mat-grid-tile>
+            <h2 style="text-align: left;width:100%">Update User</h2>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-table #table [(dataSource)]="itemsDataSource">
+        <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-form-field floatLabel="never">
+                    <input matInput placeholder="Name" [(ngModel)]="element.username" name="username" />
+                </mat-form-field>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="newPassword">
+            <mat-header-cell *matHeaderCellDef> New Password </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-form-field floatLabel="never">
+                    <input type="password" matInput placeholder="New Password" [(ngModel)]="element.newPassword" name="newPassword" />
+                </mat-form-field>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="userRole">
+            <mat-header-cell *matHeaderCellDef> User Role </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-form-field>
+                    <mat-select placeholder="User Role" [(value)]="element.userRole" required>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let userRole of userRoles" [value]="userRole">
+                            {{userRole}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="update">
+            <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-button color="accent" (click)="update(element)" *ngIf="element.username.toLowerCase()!==loggedInUsername.toLowerCase()">Update</button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-button color="warn" (click)="delete(element)" *ngIf="element.username.toLowerCase()!==loggedInUsername.toLowerCase()">Delete</button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedItemsColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedItemsColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [length]="500" [pageIndex]="pageEvent.pageIndex" [pageSize]="pageEvent.pageSize" [pageSizeOptions]="[50, 100, 200]" hidePageSize="true" (page)="getServerData($event)">
+    </mat-paginator>
+</mat-card>

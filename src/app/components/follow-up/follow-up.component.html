@@ -1,0 +1,60 @@
+<app-header></app-header>
+<mat-card>
+
+    <h2>Follow Up</h2>
+    <div class="example-container mat-elevation-z8">
+        <mat-table #table [(dataSource)]="buyLeadDataSource">
+            <ng-container matColumnDef="custName">
+                <mat-header-cell *matHeaderCellDef> Customer Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.custName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="custEmail">
+                <mat-header-cell *matHeaderCellDef> Customer Email </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.custEmail}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="custPhone">
+                <mat-header-cell *matHeaderCellDef> Customer Phone </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.custPhone}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="followUpCount">
+                <mat-header-cell *matHeaderCellDef> Follow Up Count </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="Follow-Up Count" [(ngModel)]="element.followUpCount" name="followUpCount" />
+                        <!-- <mat-error *ngIf="followUpCountControl.invalid">Please enter a valid value</mat-error> -->
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="poNumber">
+                <mat-header-cell *matHeaderCellDef> PO Number </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="PO Number" [(ngModel)]="element.poNumber" name="poNumber" required/>
+                        <!-- <mat-error *ngIf="quoteIdControl.hasError('required')">Please enter a Quote ID</mat-error> -->
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="accept">
+                <mat-header-cell *matHeaderCellDef> Accept </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-button color="primary" (click)="accept(element)">Accept</button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="reject">
+                <mat-header-cell *matHeaderCellDef> Reject </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-button color="warn" (click)="reject(element)">Reject</button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="update">
+                <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-button color="accent" (click)="update(element)">Update</button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedBuyLeadColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedBuyLeadColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [length]="500" [pageIndex]="pageEvent.pageIndex" [pageSize]="pageEvent.pageSize" [pageSizeOptions]="[50, 100, 200]" hidePageSize="true" (page)="getServerData($event)"></mat-paginator>
+    </div>
+</mat-card>
